@@ -1,0 +1,38 @@
+.encabezado {
+  background-color: red;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: fixed;
+  padding: 16px;
+  height: 80px;
+/*  position: sticky; */
+  position: relative;
+
+  top: 0;
+  z-index: 9999;
+}
+
+.encabezado img {
+  height: 100px;
+  margin-right: 16px;
+}
+
+.encabezado .agenda {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 45px;
+	height: 45px;
+	align-items: right;
+	margin-right: 16px;
+	filter: brightness(1.9); /* aumenta el brillo de la imagen en un 50% */
+	background-color: red;
+}
+
+.encabezado .agenda:hover {
+	filter: brightness(1.0); /* aumenta el brillo de la imagen en un 50% */
+		background-color: #e62e1b;
+
+}
