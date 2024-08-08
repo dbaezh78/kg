@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Generator</title>
+	
+    <style>
+        #generatedPassword {
+            width: 21.3%;
+            min-height: 50px;
+            font-size: 18px;
+            resize: both;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        function generatePassword() {
+            var passwordLength = document.getElementById("passwordLength").value || 12; // Longitud predeterminada: 12
+            var password = "";
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?";
+
+            for (var i = 0; i < passwordLength; i++) {
+                var randomIndex = Math.floor(Math.random() * characters.length);
+                password += characters.charAt(randomIndex);
+            }
+
+            document.getElementById("generatedPassword").value = password;
+        }
+
+        function copyPassword() {
+            var passwordField = document.getElementById("generatedPassword");
+            passwordField.select();
+            document.execCommand("copy");
+
+            // Mostrar el mensaje emergente (popup)
+            var popup = document.getElementById("popup");
+            popup.classList.add("show");
+            setTimeout(function() {
+                popup.classList.remove("show");
+            }, 2000);
+        }
+    </script>
+    <style>
+        /* Estilos para el mensaje emergente (popup) */
+        .popup {
+            visibility: hidden;
+            opacity: 9;
+            background-color: #66C6F2;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+			border-radius: 15px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.2s ease;
+            z-index: 9999;
+        }
+
+        .popup.show {
+            visibility: visible;
+            opacity: 20;
+        }
+    </style>
+	  <link rel="shortcut icon" href="./src/favicon.ico" />
+	  
+  <link rel="stylesheet" href="./src/kg.css">
+
+</head>
+<body>
+ <header class="encabezado">
+	<a href="../kg/">
+    <img src="./src/logo.png" alt="Logo del Instituto Cultural Dominico Americano"></a>
+	
+	 <h1>Generar Clave</h1>
+	<a href="../agenda/"><img src="./src/contact.png" alt="Generar Contraseña" class="agenda"/></a>
+  </header>
+    <form>
+        <label for="passwordLength">Longitud de Clave:</label>
+        <input type="number" id="passwordLength" name="passwordLength" min="1" max="50" value="12"> <!-- Valor predeterminado: 12 -->
+        <button type="button" onclick="generatePassword()">Generar Clave</button>
+		<button type="button" onclick="copyPassword()">Copiar</button>
+        <br>
+        <textarea id="generatedPassword" name="generatedPassword" readonly></textarea>
+    </form>
+    <div id="popup" class="popup">Copiado al Clipboard</div> <!-- Mensaje emergente (popup) -->
+</body>
+</html>
