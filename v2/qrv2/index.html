@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Código QR - Empresa XYZ</title>
+  <script src="/src/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      margin-top: 5px;
+      padding: 5px;
+      width: 50%;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #qrcode {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador de Código QR</h1>
+  <h2>Empresa XYZ</h2>
+  
+  <form id="qrForm">
+    <label for="ssid">SSID:</label>
+    <input type="text" id="ssid" placeholder="Nombre de la red Wi-Fi" required>
+    
+    <label for="username">Usuario:</label>
+    <input type="text" id="username" placeholder="Usuario de la red">
+    
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" placeholder="Contraseña de la red">
+    
+    <label for="size">Tamaño del QR:</label>
+    <select id="size">
+      <option value="128">Pequeño (128x128)</option>
+      <option value="256" selected>Mediano (256x256)</option>
+      <option value="512">Grande (512x512)</option>
+    </select>
+    
+    <button type="button" onclick="generateQR()">Generar Código QR</button>
+  </form>
+
+  <div id="qrcode"></div>
+
+  <script>
+    function generateQR() {
+      const ssid = document.getElementById('ssid').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const size = parseInt(document.getElementById('size').value);
+      
+      if (!ssid) {
+        alert('Por favor, ingresa el SSID.');
+        return;
+      }
+      
+      const wifiInfo = `SSID: ${ssid}\nUsuario: ${username}\nContraseña: ${password}`;
+      
+      // Limpiar QR anterior
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      
+      // Generar el nuevo QR
+      QRCode.toCanvas(qrContainer, wifiInfo, { width: size }, function (error) {
+        if (error) {
+          console.error(error);
+          alert('Ocurrió un error al generar el código QR.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
